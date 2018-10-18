@@ -50,16 +50,15 @@ public class TipousuarioDao {
 
     public boolean remove(int id) throws Exception {
         String strSQL = "DELETE FROM " + ob + " WHERE id=?";
+        String strSQL2 = "SELECT * FROM " + ob + " WHERE id=?";
         //TipousuarioBean oTipousuarioBean;
         //ResultSet oResultSet = null;
-        PreparedStatement oPreparedStatement = null;
+        PreparedStatement oPreparedStatement = null;      
         boolean result = false;
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL);
             oPreparedStatement.setInt(1, id);
             oPreparedStatement.execute();
-            result = true;
-
         } catch (SQLException e) {
             throw new Exception("Error en Dao remove de tipousuario", e);
         } finally {
@@ -74,31 +73,26 @@ public class TipousuarioDao {
     }
 
     public int getCount() throws Exception {
-        String strSQL = "SELECT COUNT (id) FROM" + ob;
-
-        //TipousuarioBean oTipousuarioBean;
-        ResultSet oResultSet = null;
+        String strSQL = "SELECT COUNT(id) FROM " + ob;
         PreparedStatement oPreparedStatement = null;
+        ResultSet oResultSet = null;
         int result = 0;
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL);
-            //oPreparedStatement.setInt(1, id);
             oResultSet = oPreparedStatement.executeQuery(strSQL);
-
-            //oTipousuarioBean = new TipousuarioBean();
-            result = oResultSet.getInt(90);
-            //oTipousuarioBean.setDesc(oResultSet.getString("desc"));
-
-        } catch (SQLException e) {
-            throw new Exception("Error en Dao getCount de tipousuario", e);
-        } finally {
-            if (oResultSet != null) {
-                oResultSet.close();
+            if (oResultSet.next()) {
+                result = oResultSet.getInt(1);
             }
+        } catch (SQLException e) {
+            throw new Exception("Error en Dao count de tipousuario " + e);
+        } finally {
             if (oPreparedStatement != null) {
                 oPreparedStatement.close();
             }
+            if (oResultSet != null) {
+                oResultSet.close();
+            }
         }
         return result;
-    }
+}
 }
