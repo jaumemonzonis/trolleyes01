@@ -59,6 +59,7 @@ public class TipousuarioDao {
             oPreparedStatement = oConnection.prepareStatement(strSQL);
             oPreparedStatement.setInt(1, id);
             oPreparedStatement.execute();
+            result=true;
         } catch (SQLException e) {
             throw new Exception("Error en Dao remove de tipousuario", e);
         } finally {
