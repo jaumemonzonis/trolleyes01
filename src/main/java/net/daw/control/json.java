@@ -91,7 +91,51 @@ public class json extends HttpServlet {
                             e.printStackTrace();
                         }
                     }
+                     
+                     if (strOp.equalsIgnoreCase("insert")) {
+
+                         TipousuarioService oService = new TipousuarioService(request);
+                         try {
+                             ReplyBean oReplyBean = oService.insert();
+                             strJson = "{\"status\":" + oReplyBean.getStatus() + ",\"message\":" + oReplyBean.getJson()
+                             + "}";
+
+                         } catch (Exception e) {
+                             // TODO Auto-generated catch blocks
+                             e.printStackTrace();
+                         }
+                     }
+                     
+                     if (strOp.equalsIgnoreCase("delete")) {
+
+                         TipousuarioService oService = new TipousuarioService(request);
+                         try {
+                             ReplyBean oReplyBean = oService.delete();
+                             strJson = "{\"status\":" + oReplyBean.getStatus() + ",\"message\":" + oReplyBean.getJson()
+                             + "}";
+
+                         } catch (Exception e) {
+                             // TODO Auto-generated catch blocks
+                             e.printStackTrace();
+                         }
+                     }
                 }
+                
+                
+                if (strOp.equalsIgnoreCase("update")) {
+
+                    TipousuarioService oService = new TipousuarioService(request);
+                    try {
+                        ReplyBean oReplyBean = oService.update();
+                        strJson = "{\"status\":" + oReplyBean.getStatus() + ",\"message\":" + oReplyBean.getJson()
+                        + "}";
+
+                    } catch (Exception e) {
+                        // TODO Auto-generated catch blocks
+                        e.printStackTrace();
+                    }
+                }
+                
                 if (strOb.equalsIgnoreCase("usuario")) {
                     if (strOp.equalsIgnoreCase("connect")) {
 

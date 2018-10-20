@@ -58,8 +58,10 @@ public class TipousuarioDao {
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL);
             oPreparedStatement.setInt(1, id);
-            oPreparedStatement.execute();
-            result=true;
+            int validar= oPreparedStatement.executeUpdate();
+            if (validar!=0) {
+            	result=true;
+            	}  
         } catch (SQLException e) {
             throw new Exception("Error en Dao remove de tipousuario", e);
         } finally {
@@ -96,4 +98,84 @@ public class TipousuarioDao {
         }
         return result;
 }
+    public boolean insert(String desc) throws Exception {
+    	
+    	String strSQL = "INSERT INTO " + ob + " set " + ob + ".desc=?";
+        PreparedStatement oPreparedStatement = null;      
+        boolean result = false;
+        try {
+            oPreparedStatement = oConnection.prepareStatement(strSQL);
+            oPreparedStatement.setString(1, desc);
+            int validar=oPreparedStatement.executeUpdate();
+            if (validar==1) {
+            	result=true;
+            	}  
+            
+        } catch (SQLException e) {
+            throw new Exception("Error en Dao new de tipousuario", e);
+        } finally {
+//			if (oResultSet!=null) {
+//				oResultSet.close();
+//			}
+            if (oPreparedStatement != null) {
+                oPreparedStatement.close();
+            }
+        }
+        return result;
+    } 
+    
+    public boolean delete(int id) throws Exception {
+        String strSQL = "DELETE FROM " + ob + " WHERE id=?";
+
+        //TipousuarioBean oTipousuarioBean;
+        //ResultSet oResultSet = null;
+        PreparedStatement oPreparedStatement = null;      
+        boolean result = false;
+        try {
+            oPreparedStatement = oConnection.prepareStatement(strSQL);
+            oPreparedStatement.setInt(1, id);
+            int validar= oPreparedStatement.executeUpdate();
+            if (validar!=0) {
+            	result=true;
+            	}  
+        } catch (SQLException e) {
+            throw new Exception("Error en Dao delete de tipousuario", e);
+        } finally {
+//			if (oResultSet!=null) {
+//				oResultSet.close();
+//			}
+            if (oPreparedStatement != null) {
+                oPreparedStatement.close();
+            }
+        }
+        return result;
+    }
+    
+    public boolean update (int id,String desc) throws Exception {
+        String strSQL = "UPDATE " + ob + " set " + ob + ".desc=? where id =?";
+
+        PreparedStatement oPreparedStatement = null;      
+        boolean result = false;
+        try {
+            oPreparedStatement = oConnection.prepareStatement(strSQL);
+              oPreparedStatement.setString(1, desc); 
+              oPreparedStatement.setInt(2, id);
+         
+            int validar= oPreparedStatement.executeUpdate();
+           
+            if (validar!=0) {
+            	result=true;
+            	}  
+        } catch (SQLException e) {
+            throw new Exception("Error en Dao update de tipousuario", e);
+        } finally {
+//			if (oResultSet!=null) {
+//				oResultSet.close();
+//			}
+            if (oPreparedStatement != null) {
+                oPreparedStatement.close();
+            }
+        }
+        return result;
+    }
 }
