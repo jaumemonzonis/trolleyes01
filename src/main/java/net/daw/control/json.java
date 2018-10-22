@@ -92,11 +92,11 @@ public class json extends HttpServlet {
                         }
                     }
                      
-                     if (strOp.equalsIgnoreCase("insert")) {
+                     if (strOp.equalsIgnoreCase("create")) {
 
                          TipousuarioService oService = new TipousuarioService(request);
                          try {
-                             ReplyBean oReplyBean = oService.insert();
+                             ReplyBean oReplyBean = oService.create();
                              strJson = "{\"status\":" + oReplyBean.getStatus() + ",\"message\":" + oReplyBean.getJson()
                              + "}";
 

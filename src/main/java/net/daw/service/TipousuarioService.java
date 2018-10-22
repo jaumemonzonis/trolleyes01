@@ -92,7 +92,7 @@ public class TipousuarioService {
 		return oReplyBean;
 
 	}
-        	public ReplyBean  insert() throws Exception {
+        	public ReplyBean create() throws Exception {
         		ReplyBean oReplyBean;
         		ConnectionInterface oConnectionPool = null;
         		Connection oConnection ;
@@ -104,7 +104,7 @@ public class TipousuarioService {
         			oConnection = oConnectionPool.newConnection();
         			TipousuarioDao oTipousuarioDao=new TipousuarioDao(oConnection);
         			//TipousuarioBean oTipousuarioBean = oTipousuarioDao.remove(id);
-                     boolean oTipousuarioBean = oTipousuarioDao.insert(desc);
+                     boolean oTipousuarioBean = oTipousuarioDao.create(desc);
                                 
         			Gson oGson = new Gson();
         			oReplyBean = new ReplyBean(200, oGson.toJson(oTipousuarioBean));

@@ -98,7 +98,7 @@ public class TipousuarioDao {
         }
         return result;
 }
-    public boolean insert(String desc) throws Exception {
+    public boolean create (String desc) throws Exception {
     	
     	String strSQL = "INSERT INTO " + ob + " set " + ob + ".desc=?";
         PreparedStatement oPreparedStatement = null;      
@@ -158,8 +158,9 @@ public class TipousuarioDao {
         boolean result = false;
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL);
-              oPreparedStatement.setString(1, desc); 
-              oPreparedStatement.setInt(2, id);
+               oPreparedStatement.setInt(2, id);
+               oPreparedStatement.setString(1, desc); 
+             
          
             int validar= oPreparedStatement.executeUpdate();
            
