@@ -15,7 +15,12 @@ import net.daw.constant.ConnectionConstants;
 import net.daw.factory.ConnectionFactory;
 import net.daw.helper.EncodingHelper;
 import net.daw.helper.JsonHelper;
+import net.daw.service.FacturaService;
+import net.daw.service.LineaService;
+import net.daw.service.ProductoService;
+import net.daw.service.TipoproductoService;
 import net.daw.service.TipousuarioService;
+import net.daw.service.UsuarioService;
 
 /**
  * Servlet implementation class json
@@ -140,6 +145,361 @@ public class json extends HttpServlet {
 						}
 					}
 				}
+				
+				if (strOb.equalsIgnoreCase("factura")) {
+					if (strOp.equalsIgnoreCase("get")) {
+
+						FacturaService oService = new FacturaService(request);
+						try {
+							ReplyBean oReplyBean = oService.get();
+
+//							strJson = "{\"status\":" + oReplyBean.getStatus() + ",\"message\":" + oReplyBean.getJson()
+//									+ "}";
+
+							strJson = json.strJson(oReplyBean.getStatus(), oReplyBean.getJson());
+
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					
+					
+					if (strOp.equalsIgnoreCase("getpage")) {
+						FacturaService oService = new FacturaService(request);
+						try {
+							ReplyBean oReplyBean = oService.getpage();
+							strJson = json.strJson(oReplyBean.getStatus(), oReplyBean.getJson());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					
+					
+					if (strOp.equalsIgnoreCase("remove")) {
+
+						FacturaService oService = new FacturaService(request);
+						try {
+							ReplyBean oReplyBean = oService.remove();
+//							strJson = "{\"status\":" + oReplyBean.getStatus() + ",\"message\":" + oReplyBean.getJson()
+//									+ "}";
+
+							strJson = json.strJson(oReplyBean.getStatus(), oReplyBean.getJson());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					if (strOp.equalsIgnoreCase("getcount")) {
+
+						FacturaService oService = new FacturaService(request);
+						try {
+							ReplyBean oReplyBean = oService.getcount();
+//							strJson = "{\"status\":" + oReplyBean.getStatus() + ",\"message\":" + oReplyBean.getJson()
+//									+ "}";
+							strJson = json.strJson(oReplyBean.getStatus(), oReplyBean.getJson());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					if (strOp.equalsIgnoreCase("create")) {
+
+						FacturaService oService = new FacturaService(request);
+						try {
+							ReplyBean oReplyBean = oService.create();
+//							strJson = "{\"status\":" + oReplyBean.getStatus() + ",\"message\":" + oReplyBean.getJson()
+//									+ "}";
+
+							strJson = json.strJson(oReplyBean.getStatus(), oReplyBean.getJson());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+
+					if (strOp.equalsIgnoreCase("update")) {
+
+						FacturaService oService = new FacturaService(request);
+						try {
+							ReplyBean oReplyBean = oService.update();
+//							strJson = "{\"status\":" + oReplyBean.getStatus() + ",\"message\":" + oReplyBean.getJson()
+//									+ "}";
+
+							strJson = json.strJson(oReplyBean.getStatus(), oReplyBean.getJson());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+
+				}
+				if (strOb.equalsIgnoreCase("tipoproducto")) {
+					if (strOp.equalsIgnoreCase("get")) {
+
+						TipoproductoService oService = new TipoproductoService(request);
+						try {
+							ReplyBean oReplyBean = oService.get();
+
+//							strJson = "{\"status\":" + oReplyBean.getStatus() + ",\"message\":" + oReplyBean.getJson()
+//									+ "}";
+
+							strJson = json.strJson(oReplyBean.getStatus(), oReplyBean.getJson());
+
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					
+					
+					if (strOp.equalsIgnoreCase("getpage")) {
+						TipoproductoService oService = new TipoproductoService(request);
+						try {
+							ReplyBean oReplyBean = oService.getpage();
+							strJson = json.strJson(oReplyBean.getStatus(), oReplyBean.getJson());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					
+					
+					if (strOp.equalsIgnoreCase("remove")) {
+
+						TipoproductoService oService = new TipoproductoService(request);
+						try {
+							ReplyBean oReplyBean = oService.remove();
+//							strJson = "{\"status\":" + oReplyBean.getStatus() + ",\"message\":" + oReplyBean.getJson()
+//									+ "}";
+
+							strJson = json.strJson(oReplyBean.getStatus(), oReplyBean.getJson());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					if (strOp.equalsIgnoreCase("getcount")) {
+
+						TipoproductoService oService = new TipoproductoService(request);
+						try {
+							ReplyBean oReplyBean = oService.getcount();
+//							strJson = "{\"status\":" + oReplyBean.getStatus() + ",\"message\":" + oReplyBean.getJson()
+//									+ "}";
+							strJson = json.strJson(oReplyBean.getStatus(), oReplyBean.getJson());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					if (strOp.equalsIgnoreCase("create")) {
+
+						TipoproductoService oService = new TipoproductoService(request);
+						try {
+							ReplyBean oReplyBean = oService.create();
+//							strJson = "{\"status\":" + oReplyBean.getStatus() + ",\"message\":" + oReplyBean.getJson()
+//									+ "}";
+
+							strJson = json.strJson(oReplyBean.getStatus(), oReplyBean.getJson());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+
+					if (strOp.equalsIgnoreCase("update")) {
+
+						TipoproductoService oService = new TipoproductoService(request);
+						try {
+							ReplyBean oReplyBean = oService.update();
+//							strJson = "{\"status\":" + oReplyBean.getStatus() + ",\"message\":" + oReplyBean.getJson()
+//									+ "}";
+
+							strJson = json.strJson(oReplyBean.getStatus(), oReplyBean.getJson());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+				if (strOb.equalsIgnoreCase("linea")) {
+					if (strOp.equalsIgnoreCase("get")) {
+
+						LineaService oService = new LineaService(request);
+						try {
+							ReplyBean oReplyBean = oService.get();
+
+//							strJson = "{\"status\":" + oReplyBean.getStatus() + ",\"message\":" + oReplyBean.getJson()
+//									+ "}";
+
+							strJson = json.strJson(oReplyBean.getStatus(), oReplyBean.getJson());
+
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					
+					
+					if (strOp.equalsIgnoreCase("getpage")) {
+						LineaService oService = new LineaService(request);
+						try {
+							ReplyBean oReplyBean = oService.getpage();
+							strJson = json.strJson(oReplyBean.getStatus(), oReplyBean.getJson());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					
+					
+					if (strOp.equalsIgnoreCase("remove")) {
+
+						LineaService oService = new LineaService(request);
+						try {
+							ReplyBean oReplyBean = oService.remove();
+//							strJson = "{\"status\":" + oReplyBean.getStatus() + ",\"message\":" + oReplyBean.getJson()
+//									+ "}";
+
+							strJson = json.strJson(oReplyBean.getStatus(), oReplyBean.getJson());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					if (strOp.equalsIgnoreCase("getcount")) {
+
+						LineaService oService = new LineaService(request);
+						try {
+							ReplyBean oReplyBean = oService.getcount();
+//							strJson = "{\"status\":" + oReplyBean.getStatus() + ",\"message\":" + oReplyBean.getJson()
+//									+ "}";
+							strJson = json.strJson(oReplyBean.getStatus(), oReplyBean.getJson());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					if (strOp.equalsIgnoreCase("create")) {
+
+						LineaService oService = new LineaService(request);
+						try {
+							ReplyBean oReplyBean = oService.create();
+//							strJson = "{\"status\":" + oReplyBean.getStatus() + ",\"message\":" + oReplyBean.getJson()
+//									+ "}";
+
+							strJson = json.strJson(oReplyBean.getStatus(), oReplyBean.getJson());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+
+					if (strOp.equalsIgnoreCase("update")) {
+
+						LineaService oService = new LineaService(request);
+						try {
+							ReplyBean oReplyBean = oService.update();
+//							strJson = "{\"status\":" + oReplyBean.getStatus() + ",\"message\":" + oReplyBean.getJson()
+//									+ "}";
+
+							strJson = json.strJson(oReplyBean.getStatus(), oReplyBean.getJson());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+				if (strOb.equalsIgnoreCase("producto")) {
+					if (strOp.equalsIgnoreCase("get")) {
+
+						ProductoService oService = new ProductoService(request);
+						try {
+							ReplyBean oReplyBean = oService.get();
+
+//							strJson = "{\"status\":" + oReplyBean.getStatus() + ",\"message\":" + oReplyBean.getJson()
+//									+ "}";
+
+							strJson = json.strJson(oReplyBean.getStatus(), oReplyBean.getJson());
+
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					
+					
+					if (strOp.equalsIgnoreCase("getpage")) {
+						ProductoService oService = new ProductoService(request);
+						try {
+							ReplyBean oReplyBean = oService.getpage();
+							strJson = json.strJson(oReplyBean.getStatus(), oReplyBean.getJson());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					
+					
+					if (strOp.equalsIgnoreCase("remove")) {
+
+						ProductoService oService = new ProductoService(request);
+						try {
+							ReplyBean oReplyBean = oService.remove();
+//							strJson = "{\"status\":" + oReplyBean.getStatus() + ",\"message\":" + oReplyBean.getJson()
+//									+ "}";
+
+							strJson = json.strJson(oReplyBean.getStatus(), oReplyBean.getJson());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					if (strOp.equalsIgnoreCase("getcount")) {
+
+						ProductoService oService = new ProductoService(request);
+						try {
+							ReplyBean oReplyBean = oService.getcount();
+//							strJson = "{\"status\":" + oReplyBean.getStatus() + ",\"message\":" + oReplyBean.getJson()
+//									+ "}";
+							strJson = json.strJson(oReplyBean.getStatus(), oReplyBean.getJson());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					if (strOp.equalsIgnoreCase("create")) {
+
+						ProductoService oService = new ProductoService(request);
+						try {
+							ReplyBean oReplyBean = oService.create();
+//							strJson = "{\"status\":" + oReplyBean.getStatus() + ",\"message\":" + oReplyBean.getJson()
+//									+ "}";
+
+							strJson = json.strJson(oReplyBean.getStatus(), oReplyBean.getJson());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+
+					if (strOp.equalsIgnoreCase("update")) {
+
+						ProductoService oService = new ProductoService(request);
+						try {
+							ReplyBean oReplyBean = oService.update();
+//							strJson = "{\"status\":" + oReplyBean.getStatus() + ",\"message\":" + oReplyBean.getJson()
+//									+ "}";
+
+							strJson = json.strJson(oReplyBean.getStatus(), oReplyBean.getJson());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+				
 				if (strOb.equalsIgnoreCase("usuario")) {
 					if (strOp.equalsIgnoreCase("connect")) {
 
@@ -212,6 +572,92 @@ public class json extends HttpServlet {
 							response.setStatus(401);
 //							strJson = "{\"status\":401,\"msg\":\"Authentication error\"}";
 							strJson = json.strJson(401, "Authentication error");
+						}
+					}
+					if (strOp.equalsIgnoreCase("get")) {
+
+						UsuarioService oService = new UsuarioService(request);
+						try {
+							ReplyBean oReplyBean = oService.get();
+
+//							strJson = "{\"status\":" + oReplyBean.getStatus() + ",\"message\":" + oReplyBean.getJson()
+//									+ "}";
+
+							strJson = json.strJson(oReplyBean.getStatus(), oReplyBean.getJson());
+
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					
+					
+					if (strOp.equalsIgnoreCase("getpage")) {
+						UsuarioService oService = new UsuarioService(request);
+						try {
+							ReplyBean oReplyBean = oService.getpage();
+							strJson = json.strJson(oReplyBean.getStatus(), oReplyBean.getJson());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					
+					
+					if (strOp.equalsIgnoreCase("remove")) {
+
+						UsuarioService oService = new UsuarioService(request);
+						try {
+							ReplyBean oReplyBean = oService.remove();
+//							strJson = "{\"status\":" + oReplyBean.getStatus() + ",\"message\":" + oReplyBean.getJson()
+//									+ "}";
+
+							strJson = json.strJson(oReplyBean.getStatus(), oReplyBean.getJson());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					if (strOp.equalsIgnoreCase("getcount")) {
+
+						UsuarioService oService = new UsuarioService(request);
+						try {
+							ReplyBean oReplyBean = oService.getcount();
+//							strJson = "{\"status\":" + oReplyBean.getStatus() + ",\"message\":" + oReplyBean.getJson()
+//									+ "}";
+							strJson = json.strJson(oReplyBean.getStatus(), oReplyBean.getJson());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					if (strOp.equalsIgnoreCase("create")) {
+
+						UsuarioService oService = new UsuarioService(request);
+						try {
+							ReplyBean oReplyBean = oService.create();
+//							strJson = "{\"status\":" + oReplyBean.getStatus() + ",\"message\":" + oReplyBean.getJson()
+//									+ "}";
+
+							strJson = json.strJson(oReplyBean.getStatus(), oReplyBean.getJson());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+
+					if (strOp.equalsIgnoreCase("update")) {
+
+						UsuarioService oService = new UsuarioService(request);
+						try {
+							ReplyBean oReplyBean = oService.update();
+//							strJson = "{\"status\":" + oReplyBean.getStatus() + ",\"message\":" + oReplyBean.getJson()
+//									+ "}";
+
+							strJson = json.strJson(oReplyBean.getStatus(), oReplyBean.getJson());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
 						}
 					}
 				}
