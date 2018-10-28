@@ -115,7 +115,7 @@ public class ProductoDao {
 				oProductoBean.setId(0);
 			}
 		} catch (SQLException e) {
-			throw new Exception("Error en Dao create de " + ob, e);
+			throw new Exception("Error en Dao create/fill de " + ob, e);
 		} finally {
 			if (oResultSet != null) {
 				oResultSet.close();

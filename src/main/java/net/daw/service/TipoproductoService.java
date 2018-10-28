@@ -164,4 +164,33 @@ public class TipoproductoService {
 
 	}
 
+	public ReplyBean fill() throws Exception {
+		ReplyBean oReplyBean;
+		ConnectionInterface oConnectionPool = null;
+		Connection oConnection;
+		try {
+			
+			
+			
+			
+			String strJsonFromClient = oRequest.getParameter("json");
+			Gson oGson = new Gson();
+			TipoproductoBean oTipoproductoBean = new TipoproductoBean();
+			oTipoproductoBean = oGson.fromJson(strJsonFromClient, TipoproductoBean.class);
+			oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
+			oConnection = oConnectionPool.newConnection();
+			TipoproductoDao oTipoproductoDao = new TipoproductoDao(oConnection, ob);
+			oTipoproductoBean = oTipoproductoDao.create(oTipoproductoBean);
+			oReplyBean = new ReplyBean(200, oGson.toJson(oTipoproductoBean));
+		} catch (Exception ex) {
+			oReplyBean = new ReplyBean(500,
+					"ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
+		} finally {
+			oConnectionPool.disposeConnection();
+		}
+		return oReplyBean;
+	}
+
+	
+	
 }
