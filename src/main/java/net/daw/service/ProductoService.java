@@ -166,72 +166,70 @@ public class ProductoService {
 	}
 
 	public ReplyBean fill() throws Exception {
-		ReplyBean oReplyBean;
+		ReplyBean oReplyBean = null;
 		ConnectionInterface oConnectionPool = null;
 		Connection oConnection;
+		Integer repeat = Integer.parseInt(oRequest.getParameter("repeat"));
 
-		try {
-		
-	
-			//rellenar DESC
-			 String[] desc1 = {"Util", "utensilio", "aparejo", "instrumento", "aparato", "artefacto", "material",
-			            "trebejo", "mecanismo", "chirimbolo"};
-			        String[] desc2 = {"acerado", "afilado", "agudo", "aguzado", "cortante", "dinamico", "automatico",
-			            "movil", "tactil", "maciza"};
-			        String[] desc3 = {"para cortar", "para romper", "para unir", "para copiar", "para untar", "para colar",
-			            "para diseñar", "para corrosionar", "para digitalizar"};
-			String desc1union = desc1[(int) (Math.random() * 10) + 1];
-	        String desc2union = desc2[(int) (Math.random() * 10) + 1];
-	        String desc3union = desc3[(int) (Math.random() * 10) + 1];
-	        String desc= desc1union+ " " +desc2union+ " " +desc3union;
-			
+		for (int i = 0; i < repeat; i++) {
 
-			// rellenar FOTO
-			String[] listaFotos = { "Estandar", "Formato DNI", "No disponible", "Disponible"};
-			int posicion = (int) (Math.random() * listaFotos.length);
-			String foto = listaFotos[posicion];
+			try {
 
-		
-			// rellenar ID
-			Integer id = null;
-			
-			// rellenar CODIGO 5 numeros 
-			String codigo = String.valueOf((int) (100000 * Math.random()));
-			
-			// rellenar EXISTENCIAS
-			Integer existencias = (int) (Math.random() * 20) + 1;
-			
-			// rellenar PRECIO
-			Float precio = (float) (Math.random() * 10) + 1;
-			
-			// rellenar ID_TIPOPRODUCTO
-			Random generadorAleatorios = new Random();
-			Integer id_tipoProducto = 1 + generadorAleatorios.nextInt(2);
+				// rellenar DESC
+				String[] desc1 = { "Util", "utensilio", "aparejo", "instrumento", "aparato", "artefacto", "material",
+						"trebejo", "mecanismo", "chirimbolo" };
+				String[] desc2 = { "acerado", "afilado", "agudo", "aguzado", "cortante", "dinamico", "automatico",
+						"movil", "tactil", "maciza" };
+				String[] desc3 = { "para cortar", "para romper", "para unir", "para copiar", "para untar", "para colar",
+						"para diseñar", "para corrosionar", "para digitalizar" };
+				String desc1union = desc1[(int) (Math.random() * 10) + 1];
+				String desc2union = desc2[(int) (Math.random() * 10) + 1];
+				String desc3union = desc3[(int) (Math.random() * 10) + 1];
+				String desc = desc1union + " " + desc2union + " " + desc3union;
 
-			String rellenar = "{\"id\":null,\"codigo\":\"" + codigo + "\",\"desc\":\"" + desc + "\",\"existencias\":\""
-					+ existencias + "\",\"precio\":\"" + precio + "\",\"foto\":\"" + foto + "\",\"id_tipoProducto\":\""
-					+ id_tipoProducto + "\"}";
-			
-			
-			Gson oGson = new Gson();
-			ProductoBean oProductoBean = new ProductoBean();
-			oProductoBean = oGson.fromJson(rellenar, ProductoBean.class);
-			oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
-			oConnection = oConnectionPool.newConnection();
-			ProductoDao oProductoDao = new ProductoDao(oConnection, ob);
-			oProductoBean = oProductoDao.create(oProductoBean);
-			oReplyBean = new ReplyBean(200, oGson.toJson(oProductoBean));
-			
-		} catch (Exception ex) {
-			oReplyBean = new ReplyBean(500,
-					"ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
-		} finally {
-			oConnectionPool.disposeConnection();
+				// rellenar FOTO
+				String[] listaFotos = { "Estandar", "Formato DNI", "No disponible", "Disponible" };
+				int posicion = (int) (Math.random() * listaFotos.length);
+				String foto = listaFotos[posicion];
+
+				// rellenar ID
+				Integer id = null;
+
+				// rellenar CODIGO 5 numeros
+				String codigo = String.valueOf((int) (100000 * Math.random()));
+
+				// rellenar EXISTENCIAS
+				Integer existencias = (int) (Math.random() * 20) + 1;
+
+				// rellenar PRECIO
+				Float precio = (float) (Math.random() * 10) + 1;
+
+				// rellenar ID_TIPOPRODUCTO
+				Random generadorAleatorios = new Random();
+				Integer id_tipoProducto = 1 + generadorAleatorios.nextInt(2);
+
+				String rellenar = "{\"id\":null,\"codigo\":\"" + codigo + "\",\"desc\":\"" + desc
+						+ "\",\"existencias\":\"" + existencias + "\",\"precio\":\"" + precio + "\",\"foto\":\"" + foto
+						+ "\",\"id_tipoProducto\":\"" + id_tipoProducto + "\"}";
+
+				Gson oGson = new Gson();
+				ProductoBean oProductoBean = new ProductoBean();
+				oProductoBean = oGson.fromJson(rellenar, ProductoBean.class);
+				oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
+				oConnection = oConnectionPool.newConnection();
+				ProductoDao oProductoDao = new ProductoDao(oConnection, ob);
+				oProductoBean = oProductoDao.create(oProductoBean);
+				oReplyBean = new ReplyBean(200, oGson.toJson(oProductoBean));
+
+			} catch (Exception ex) {
+				oReplyBean = new ReplyBean(500,
+						"ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
+			} finally {
+				oConnectionPool.disposeConnection();
+			}
 		}
-
 		return oReplyBean;
 
 	}
-
 
 }
