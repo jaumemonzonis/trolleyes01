@@ -146,10 +146,12 @@ public class UsuarioService {
 		try {
 			Integer iRpp = Integer.parseInt(oRequest.getParameter("rpp"));
 			Integer iPage = Integer.parseInt(oRequest.getParameter("page"));
+			String iCampo = oRequest.getParameter("campo");
+			String iOrder = oRequest.getParameter("orden");
 			oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
 			oConnection = oConnectionPool.newConnection();
 			UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
-			ArrayList<UsuarioBean> alUsuarioBean = oUsuarioDao.getpage(iRpp, iPage);
+			ArrayList<UsuarioBean> alUsuarioBean = oUsuarioDao.getpage(iRpp, iPage, iCampo, iOrder);
 			Gson oGson = new Gson();
 			oReplyBean = new ReplyBean(200, oGson.toJson(alUsuarioBean));
 		} catch (Exception ex) {
@@ -162,5 +164,33 @@ public class UsuarioService {
 		return oReplyBean;
 
 	}
-
+	public ReplyBean fill() throws Exception {
+		ReplyBean oReplyBean;
+		ConnectionInterface oConnectionPool = null;
+		Connection oConnection;
+		try {
+			Integer number = Integer.parseInt(oRequest.getParameter("number"));
+			Gson oGson = new Gson();
+			oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
+			oConnection = oConnectionPool.newConnection();
+			UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
+			UsuarioBean oUsuarioBean = new UsuarioBean();
+			for (int i = 1; i <= number; i++) {			
+				oUsuarioBean.setDni("765934875A");
+				oUsuarioBean.setNombre("Rigoberto");
+				oUsuarioBean.setApe1("Pérez");
+				oUsuarioBean.setApe2("Gómez");
+				oUsuarioBean.setLogin("ripego");
+				oUsuarioBean.setPass("hola");
+				oUsuarioBean.setId_tipoUsuario(5);
+				oUsuarioBean = oUsuarioDao.create(oUsuarioBean);
+			}
+			oReplyBean = new ReplyBean(200, oGson.toJson(number));
+		} catch (Exception ex) {
+			throw new Exception("ERROR: Service level: create method: " + ob + " object", ex);
+		} finally {
+			oConnectionPool.disposeConnection();
+		}
+		return oReplyBean;
+}
 }
