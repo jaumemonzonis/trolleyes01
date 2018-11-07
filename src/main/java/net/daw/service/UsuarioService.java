@@ -157,6 +157,7 @@ public class UsuarioService {
 		return oReplyBean;
 	}
 
+
 	public ReplyBean getpage() throws Exception {
 		ReplyBean oReplyBean;
 		ConnectionInterface oConnectionPool = null;
@@ -179,7 +180,7 @@ public class UsuarioService {
 
 		return oReplyBean;
 
-	}
+}
 
 	
 

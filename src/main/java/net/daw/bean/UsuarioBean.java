@@ -23,9 +23,9 @@ public class UsuarioBean {
     private String login;
 	@Expose
     private String pass;
-	@Expose(serialize=false)
+	@Expose
     private int id_tipoUsuario;    
-    @Expose(deserialize=false)
+    @Expose
     private TipousuarioBean obj_tipoUsuario;
     
 
