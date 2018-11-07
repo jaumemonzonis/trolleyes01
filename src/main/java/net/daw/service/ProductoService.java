@@ -7,6 +7,7 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import net.daw.bean.ReplyBean;
 import net.daw.bean.UsuarioBean;
@@ -17,6 +18,7 @@ import net.daw.dao.ProductoDao;
 import net.daw.dao.UsuarioDao;
 import net.daw.factory.ConnectionFactory;
 import net.daw.helper.EncodingHelper;
+import net.daw.service.RellenarService;
 
 public class ProductoService {
 
@@ -167,68 +169,27 @@ public class ProductoService {
 
 	}
 
-	public ReplyBean fill() throws Exception {
-		ReplyBean oReplyBean;
-		ConnectionInterface oConnectionPool = null;
-		Connection oConnection;
-		try {
-			Integer number = Integer.parseInt(oRequest.getParameter("number"));
-			Gson oGson = new Gson();
-			oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
-			oConnection = oConnectionPool.newConnection();
-			ProductoDao oProductoDao = new ProductoDao(oConnection, ob);
-			ProductoBean oProductoBean = new ProductoBean();
-			for (int i = 1; i <= number; i++) {			
-
-				// rellenar CODIGO 5 numeros
-				String codigo = String.valueOf((int) (100000 * Math.random()));
-				oProductoBean.setCodigo(codigo);
-				
-				String[] desc1 = { "Util", "utensilio", "aparejo", "instrumento", "aparato", "artefacto", "material",
-						"trebejo", "mecanismo", "chirimbolo" };
-				
-				String[] desc2 = { "Util", "utensilio", "aparejo", "instrumento", "aparato", "artefacto", "material",
-						"trebejo", "mecanismo", "chirimbolo" };
-				
-				//String[] desc2 = {"acerado","afilado","agudo","aguzado","cortante","dinamico","automatico","movil","tactil","maciza"};
-				
-				
-				
-				String[] desc3 = {"para cortar","para romper","para unir","para copiar","para untar","para colar","para diseñar","para corrosionar","para digitalizar","para mezclar"};
-				
-				String desc1union = desc1[(int) (Math.random() * 10) + 1];
-				String desc2union = desc2[(int) (Math.random() * 10) + 1];
-				String desc3union = desc3[(int) (Math.random() * 10) + 1];
-				String desc = desc1union + " " + desc2union + " " + desc3union;
-				oProductoBean.setDesc(desc);
-
-				// rellenar EXISTENCIAS
-				Integer existencias = (int) (Math.random() * 20) + 1;
-				oProductoBean.setExistencias(existencias);
-				
-				// rellenar PRECIO
-				Float precio = (float) (Math.random() * 10) + 1;
-				oProductoBean.setPrecio(precio);
-				
-				// rellenar FOTO
-				String[] listaFotos = { "Estandar", "Formato DNI", "No disponible", "Disponible" };
-				int posicion = (int) (Math.random() * listaFotos.length);
-				String foto = listaFotos[posicion];
-				oProductoBean.setFoto(foto);
-				
-				// rellenar ID_TIPOPRODUCTO
-				Random generadorAleatorios = new Random();
-				Integer id_tipoProducto = 1 + generadorAleatorios.nextInt(2);
-				oProductoBean.setId_tipoProducto(id_tipoProducto);
-				
-				oProductoBean = oProductoDao.create(oProductoBean);
-			}
-			oReplyBean = new ReplyBean(200, oGson.toJson(number));
-		} catch (Exception ex) {
-			throw new Exception("ERROR: Service level: create method: " + ob + " object", ex);
-		} finally {
-			oConnectionPool.disposeConnection();
-		}
-		return oReplyBean;
-}
+    public ReplyBean fill() throws Exception {
+        ReplyBean oReplyBean;
+        ConnectionInterface oConnectionPool = null;
+        Connection oConnection;
+        ArrayList<ProductoBean> productos = new ArrayList<>();
+        RellenarService oRellenarService = new RellenarService();
+        try {
+            Integer number = Integer.parseInt(oRequest.getParameter("number"));
+            oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
+            oConnection = oConnectionPool.newConnection();
+            ProductoDao oProductoDao = new ProductoDao(oConnection, ob);
+            productos = oRellenarService.RellenarProducto(number);
+            for (ProductoBean producto : productos) {
+                oProductoDao.create(producto);
+            }
+            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
+            oReplyBean = new ReplyBean(200, oGson.toJson("Productos creados: " + number));
+        } catch (Exception ex) {
+            oReplyBean = new ReplyBean(500,
+                    "ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
+        }
+        return oReplyBean;
+    }
 }

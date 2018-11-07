@@ -1,13 +1,21 @@
 package net.daw.bean;
 
+import com.google.gson.annotations.Expose;
+
 public class ProductoBean {
-	
+
 	private int id;
+
 	private String codigo;
+
 	private String desc;
+
 	private int existencias;
+
 	private float precio;
+	
 	private String foto;
+	
 	private int id_tipoProducto;
 	
 	public int getId() {

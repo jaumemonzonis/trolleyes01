@@ -96,17 +96,17 @@ public class ProductoDao {
 	}
 
 	public ProductoBean create(ProductoBean oProductoBean) throws Exception {
-		String strSQL = "INSERT INTO " + ob + " (`id`, `codigo`, `desc`, `existencias`, `precio`, `foto`, `id_tipoProducto`) VALUES (NULL, ?, ?, ?, ?, ?, ?) ";
+		String strSQL = "INSERT INTO " + ob + " (`id`, `codigo`, `desc`, `existencias`, `precio`, `foto`, `id_tipoProducto`) VALUES (NULL, ?,?,?,?,?,?); ";
 		ResultSet oResultSet = null;
 		PreparedStatement oPreparedStatement = null;
 		try {
 			oPreparedStatement = oConnection.prepareStatement(strSQL);
 			oPreparedStatement.setString(1, oProductoBean.getCodigo());
-			oPreparedStatement.setString(2, oProductoBean.getDesc());
-			oPreparedStatement.setInt(3, oProductoBean.getExistencias());
-			oPreparedStatement.setFloat(4, oProductoBean.getPrecio());
-			oPreparedStatement.setString(5, oProductoBean.getFoto());
-			oPreparedStatement.setInt(6, oProductoBean.getId_tipoProducto());
+                        oPreparedStatement.setString(2, oProductoBean.getDesc());
+                        oPreparedStatement.setInt(3, oProductoBean.getExistencias());
+                        oPreparedStatement.setFloat(4, oProductoBean.getPrecio());
+                        oPreparedStatement.setString(5, oProductoBean.getFoto());
+                        oPreparedStatement.setInt(6, oProductoBean.getId_tipoProducto());
 			oPreparedStatement.executeUpdate();
 			oResultSet = oPreparedStatement.getGeneratedKeys();
 			if (oResultSet.next()) {
@@ -115,7 +115,7 @@ public class ProductoDao {
 				oProductoBean.setId(0);
 			}
 		} catch (SQLException e) {
-			throw new Exception("Error en Dao create/fill de " + ob, e);
+			throw new Exception("Error en Dao create de " + ob, e);
 		} finally {
 			if (oResultSet != null) {
 				oResultSet.close();
@@ -125,7 +125,7 @@ public class ProductoDao {
 			}
 		}
 		return oProductoBean;
-	}
+}
 
 	public int update(ProductoBean oProductoBean) throws Exception {
 		int iResult = 0;

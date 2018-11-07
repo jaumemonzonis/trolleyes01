@@ -1,12 +1,33 @@
 package net.daw.bean;
 
-public class LineaBean {
-	
-	private int id;
-	private int cantidad;
-	private int id_producto;
-	private int id_factura;
+import com.google.gson.annotations.Expose;
 
+public class LineaBean {
+	@Expose
+	private int id;
+	@Expose
+	private int cantidad;
+	@Expose(serialize=false)
+	private int id_producto;
+	@Expose(deserialize=false)
+    private ProductoBean obj_Producto;
+	@Expose(serialize=false)
+	private int id_factura;
+	@Expose(deserialize=false)
+    private FacturaBean obj_Factura;
+	
+	public ProductoBean getObj_Producto() {
+		return obj_Producto;
+	}
+	public void setObj_Producto(ProductoBean obj_Producto) {
+		this.obj_Producto = obj_Producto;
+	}
+	public FacturaBean getObj_Factura() {
+		return obj_Factura;
+	}
+	public void setObj_Factura(FacturaBean obj_Factura) {
+		this.obj_Factura = obj_Factura;
+	}
 	public int getId() {
 		return id;
 	}
